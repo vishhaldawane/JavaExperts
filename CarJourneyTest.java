@@ -55,18 +55,32 @@ class Car
 {
     void startCar() {
         System.out.println("Starting the Engine...");
-        shortJourney();
+        try {
+            shortJourney();
+        }
+        catch(SpeedLimitCrossedException e) {
+            System.out.println("Speed Problem : "+e.getMessage());
+        }
+        catch(FlatTyreException e) {
+            System.out.println("Tyre Problem : "+e.getMessage());
+        }
     }
     private void shortJourney()
     {
         System.out.println("Short Journey started...");
         for(int i=1;i<=5;i++) {
 
-            int randomSpeed =RandomNumberGenerator.randomNumber(1,120);
+            int randomSpeed = RandomNumberGenerator.randomNumber(1,120);
             System.out.println("miles finished : current speed "+randomSpeed);
             if(randomSpeed > 80 ) {
                 SpeedLimitCrossedException slce = new SpeedLimitCrossedException("Oh!! Speed limit exceeded 80mph : currentSpeed :  "+randomSpeed);
                 throw slce;
+            }
+
+            int flatTyrePressure = RandomNumberGenerator.randomNumber(1,35);
+            if(flatTyrePressure < 15 ) {
+                FlatTyreException fte = new FlatTyreException("Ohh!! i guess the tyre is flat....");
+                throw fte;
             }
         }
         System.out.println("Short Journey finished...");
