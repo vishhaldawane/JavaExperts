@@ -1,7 +1,32 @@
 public class CarJourneyTest {
     public static void main(String[] args) {
-        Car myCar1 = new Car();
-        myCar1.startCar();
+        Car myCar1 = new Car("Skoda");
+        Car myCar2 = new Car("Maruti");
+        Car myCar3 = new Car("BMW");
+        Car myCar4 = new Car("Merc");
+        Car myCar5 = new Car("Honda");
+
+        System.out.println("car1 "+myCar1);
+        System.out.println("car2 "+myCar2);
+        System.out.println("car3 "+myCar3);
+        System.out.println("car4 "+myCar4);
+        System.out.println("car5 "+myCar5);
+
+        //observe below line, box bracket is not a constructor, means not an object at all
+        Car myCars[] = new Car[5]; //just 5 Car references, not 5 Car objects yet
+
+        //HEAD FIRST JAVA
+
+        myCars[0] = new Car("Bugati"); //first car object assigned here
+        myCars[1] = new Car("Lamborghini"); //and so on
+        myCars[2] = new Car("Ferrari");
+        myCars[3] = new Car("VolksVagen");
+        myCars[4] = new Car("Toyota");
+        for (int i = 0; i <myCars.length ; i++) {
+            myCars[i].showCar();
+        }
+
+
     }
 }
 /*what type of exceptions
@@ -53,6 +78,22 @@ class RandomNumberGenerator
 }
 class Car
 {
+    String model;
+
+    public Car(String model) {
+        this.model = model;
+    }
+    void showCar() {
+        System.out.println("Car Model : "+model);
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "model='" + model + '\'' +
+                '}';
+    }
+
     void startCar() {
         System.out.println("Starting the Engine...");
         try {
