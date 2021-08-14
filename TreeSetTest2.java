@@ -11,6 +11,35 @@ public class TreeSetTest2 {
         ChemicalElement element5 = new ChemicalElement(2,"Helium","He",4.0026);
         System.out.println("All the elements are ready....");
 
+        /*
+                        1 <-- as a root -- always the first element as root
+                        |
+                   ------------
+                 L  |        | R
+                             5
+                             |
+                           -------
+                           |      |
+                           3<--- the depth of the tree is being increased with imbalance at right side
+                                    ..left side is totally empty if u see there
+
+
+                   dynamically a new tree is formed now to balance all the values
+                   THIS IS BALANCED BINARY TREE CONCEPT
+
+      1                     3
+                            |
+                     ---------------
+                     |              |
+       2             1              5
+                     |               |
+                  --------        ---------
+                          |        |       |
+       3    =>             2              8  <==
+
+  
+
+          */
         TreeSet<ChemicalElement> periodicTable = new TreeSet<ChemicalElement>();
         System.out.println("TreeSet adding the 1 element");
         periodicTable.add(element1); //now the good point is, the add will call
@@ -37,6 +66,16 @@ public class TreeSetTest2 {
         }
 }
 
+class Powder {}
+class CurryPowder extends Powder { }
+class TalcumPowder extends Powder { }
+
+class Curry {
+    CurryPowder cp = new CurryPowder();
+}
+class VegCurry extends Curry { }
+class FishCurry extends Curry { }
+class ChickenCurry extends Curry { }
 
 class ChemicalElement implements Comparable<ChemicalElement> //
 {
@@ -46,14 +85,22 @@ class ChemicalElement implements Comparable<ChemicalElement> //
     double atomicWeight;
 
     @Override
-    public int compareTo(ChemicalElement o) {
-        System.out.println("Comparing "+atomicNumber+" with an element...."+o.atomicNumber);
-        if(atomicNumber < o.atomicNumber) // 1 < 5
-          return atomicNumber - o.atomicNumber; //  -4
-        else if(atomicNumber > o.atomicNumber)  // 5 > 1
-            return atomicNumber - o.atomicNumber; // 4
+    public int compareTo(ChemicalElement o) { //this method is bound to be here as an assurance from Comparable interface
+   //     System.out.println("\tComparing atomicNumber:"+atomicNumber+" with an atomicNumber...."+o.atomicNumber);
+       // return Integer.compare(atomicNumber,o.atomicNumber);
+
+   //     System.out.println("\tComparing atomicWeight:"+atomicWeight+" with an atomicWeight...."+o.atomicWeight);
+   //     return Double.compare(atomicWeight,o.atomicWeight);
+        System.out.println("\tComparing elementFormula:"+elementFormula+" with an elementFormula...."+o.elementFormula);
+        return elementFormula.compareTo(o.elementFormula); //String class's compareTo()
+
+        /*if(o.atomicNumber < atomicNumber) // element1's 5 < element1's 1
+          return o.atomicNumber - atomicNumber; //  -4
+        else if(o.atomicNumber > atomicNumber)  // 5 > 1
+            return o.atomicNumber - atomicNumber; // 4
         else
-            return 0;
+            return 0;*/
+
     }
 
     public ChemicalElement(int atomicNumber, String elementName, String elementFormula, double atomicWeight) {
