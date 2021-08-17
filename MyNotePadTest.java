@@ -26,6 +26,12 @@ class MyNotepad extends JFrame implements ActionListener
     JLabel prompt = new JLabel("Enter filename ");
     JTextField filename = new JTextField(20);
 
+    JMenuBar myMenuBar = new JMenuBar(); //one logical horizontal PLATE
+
+    JMenu fileMenu = new JMenu("File");//on which File menu is placed
+    JMenu editMenu = new JMenu("Edit");
+    JMenu exitMenu = new JMenu("Exit");
+
     @Override
     public void actionPerformed(ActionEvent e) {
             System.out.println("Button is clicked....");
@@ -33,6 +39,8 @@ class MyNotepad extends JFrame implements ActionListener
             FileOutputStream myFile = new FileOutputStream(filename.getText());
             System.out.println("File is crated...");
             //find the data
+            //HINT : setText method on TextArea to fill up the text area
+            
             String stringToBeWritten= data.getText();
             byte byteArray[] = stringToBeWritten.getBytes(); //convert the string into array
             myFile.write(byteArray);
@@ -50,6 +58,12 @@ class MyNotepad extends JFrame implements ActionListener
     }
 
     MyNotepad() {
+        myMenuBar.add(fileMenu); //add the menu to the menu bar
+        myMenuBar.add(editMenu);
+        myMenuBar.add(exitMenu);
+
+        setJMenuBar(myMenuBar); //add the menubar to the frame
+
         save.addActionListener(this);// register the button for the event handling
         setLayout(new FlowLayout());
         add(prompt); add(filename);
