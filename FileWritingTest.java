@@ -2,6 +2,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.KeyStore;
 import java.util.Scanner;
 
 public class FileWritingTest {
@@ -9,7 +10,7 @@ public class FileWritingTest {
         try {
             System.out.println("Trying to write to a file...");
             FileOutputStream fout = new
-                        FileOutputStream("/Users/apple/IdeaProjects/FileHandlingProject/src/Queen.txt");
+                        FileOutputStream("/Users/apple/IdeaProjects/FileHandlingProject/src/Queen.txt", true);
                 System.out.println("File is ready to create....");
 
                 Scanner scan = new Scanner(System.in);
