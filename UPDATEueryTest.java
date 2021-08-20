@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 /*
 
@@ -43,9 +44,22 @@ public class UPDATEueryTest {
             //4th run the query and get the output
             PreparedStatement pst = conn.prepareStatement("UPDATE EMPLOYEE SET EMPNAME=?, EMPSAL=? WHERE EMPNO=?");
 
-            pst.setString(1,"JOGGY");
-            pst.setInt(2,7575);
-            pst.setInt(3,555);  //data must come from UI /htmlform
+            Scanner scan1 = new Scanner(System.in);
+            Scanner scan2 = new Scanner(System.in);
+            Scanner scan3 = new Scanner(System.in);
+            System.out.println("Enter new employee name : ");
+            String newEmployeeName=scan1.nextLine();
+
+            System.out.println("Enter new employee salary : ");
+            int newEmployeeSalary=scan2.nextInt();
+
+            System.out.println("For employee number : ");
+            int forEmployeeNumber=scan3.nextInt();
+
+
+            pst.setString(1,newEmployeeName);
+            pst.setInt(2,newEmployeeSalary);
+            pst.setInt(3,forEmployeeNumber);  //data must come from UI /htmlform
 
             int rows = pst.executeUpdate();
             System.out.println("Rows UPDATED : "+rows);
