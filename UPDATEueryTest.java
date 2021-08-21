@@ -38,7 +38,8 @@ public class UPDATEueryTest {
             System.out.println("Trying to connect to HSQLDB");
             Connection conn = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/mydb", "SA","");
             System.out.println("Connected....."+conn);
-            
+
+            conn.setAutoCommit(false); // auto commit mode is OFF, default was true
 
             //3rd is to decide the query
             //4th run the query and get the output
@@ -47,6 +48,9 @@ public class UPDATEueryTest {
             Scanner scan1 = new Scanner(System.in);
             Scanner scan2 = new Scanner(System.in);
             Scanner scan3 = new Scanner(System.in);
+            Scanner scan4 = new Scanner(System.in);
+
+
             System.out.println("Enter new employee name : ");
             String newEmployeeName=scan1.nextLine();
 
@@ -54,7 +58,7 @@ public class UPDATEueryTest {
             int newEmployeeSalary=scan2.nextInt();
 
             System.out.println("For employee number : ");
-            int forEmployeeNumber=scan3.nextInt();
+            int forEmployeeNumber=scan3.nextInt(); //7566
 
 
             pst.setString(1,newEmployeeName);
@@ -62,7 +66,21 @@ public class UPDATEueryTest {
             pst.setInt(3,forEmployeeNumber);  //data must come from UI /htmlform
 
             int rows = pst.executeUpdate();
-            System.out.println("Rows UPDATED : "+rows);
+
+            System.out.println("Are you sure to update this record ?  ");
+            String answer =scan4.nextLine();
+
+            if(answer.equalsIgnoreCase("yes")) {
+                conn.commit(); // permanent changes
+                System.out.println("Record is updated successfully...");
+                System.out.println("Rows UPDATED : "+rows);
+            }else {
+                conn.rollback(); //changes are discarded
+                System.out.println("Record is discarded to update...");
+            }
+
+
+
 
             pst.close();
             conn.close();

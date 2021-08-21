@@ -23,7 +23,11 @@ public class SelectQueryTest {
             //4th run the query and get the output
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM EMPLOYEE");
-
+            ResultSetMetaData rsmd = rs.getMetaData();
+            System.out.println("columns "+rsmd.getColumnCount());
+            for(int i=1;i<=rsmd.getColumnCount();i++) {
+                System.out.println("Column name : "+rsmd.getColumnName(i));
+            }
             //5th process the output if required
             while(rs.next()) {
                 System.out.println("EMPLOYEE NUMBER : "+rs.getInt(1));

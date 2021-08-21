@@ -1,6 +1,9 @@
 import java.sql.*;
 /*
 
+HIBERNATE - FRAMEWORK -- ORM -  OBJECT RELATIONAL MAPPING
+
+
 following diagram is NOT of inheritance,it is just a logical flow of understanding
 
 
