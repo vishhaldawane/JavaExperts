@@ -1,4 +1,9 @@
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Scanner;
+
 /*
 
 following diagram is NOT of inheritance,it is just a logical flow of understanding
@@ -17,7 +22,7 @@ following diagram is NOT of inheritance,it is just a logical flow of understandi
           select     insert/update/delete   procedure/functions
 
  */
-public class InsertQueryTest {
+public class DeleteQueryTest {
     public static void main(String[] args) {
         //JDBC - java database connectivity
 
@@ -33,17 +38,20 @@ public class InsertQueryTest {
             System.out.println("Trying to connect to HSQLDB");
             Connection conn = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/mydb", "SA","");
             System.out.println("Connected....."+conn);
-
+            
 
             //3rd is to decide the query
             //4th run the query and get the output
-            PreparedStatement pst = conn.prepareStatement("insert into employee values (?,?,?)");
-            pst.setInt(1,555);  //data must come from UI /htmlform
-            pst.setString(2,"ROBERT");
-            pst.setInt(3,6666);
+            PreparedStatement pst = conn.prepareStatement("delete from EMPLOYEE  WHERE EMPNO=?");
+
+            Scanner scan1 = new Scanner(System.in);
+            System.out.println("For employee number : ");
+            int forEmployeeNumber=scan1.nextInt();
+
+            pst.setInt(1,forEmployeeNumber);  //data must come from UI /htmlform
 
             int rows = pst.executeUpdate();
-            System.out.println("Rows inserted : "+rows);
+            System.out.println("Rows DELETED : "+rows);
 
             pst.close();
             conn.close();

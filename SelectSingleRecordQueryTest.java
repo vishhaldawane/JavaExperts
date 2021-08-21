@@ -1,6 +1,7 @@
 import java.sql.*;
+import java.util.Scanner;
 
-public class SelectQueryTest {
+public class SelectSingleRecordQueryTest {
     public static void main(String[] args) {
         //JDBC - java database connectivity
 
@@ -19,17 +20,24 @@ public class SelectQueryTest {
             Connection conn = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/mydb", "SA","");
             System.out.println("Connected....."+conn);
 
+
+            Scanner scan1 = new Scanner(System.in);
+            System.out.println("For employee number : ");
+            int forEmployeeNumber=scan1.nextInt();
+
             //3rd is to decide the query
             //4th run the query and get the output
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM EMPLOYEE");
+            ResultSet rs = st.executeQuery("SELECT * FROM EMPLOYEE WHERE EMPNO="+forEmployeeNumber);
 
             //5th process the output if required
-            while(rs.next()) {
+            if(rs.next()) {
                 System.out.println("EMPLOYEE NUMBER : "+rs.getInt(1));
                 System.out.println("EMPLOYEE NAME   : "+rs.getString(2));
                 System.out.println("EMPLOYEE SALARY : "+rs.getInt(3));
                 System.out.println("-----------------------------");
+            } else {
+                System.out.println("Employee NOT found : "+forEmployeeNumber);
             }
             //6th close the connection
             rs.close();
@@ -39,7 +47,5 @@ public class SelectQueryTest {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-
     }
 }
